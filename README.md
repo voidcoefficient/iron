@@ -1,6 +1,6 @@
 # Iron (Rust shell)
 
-This is still a work in progress, but the shell is almost usable.
+Iron is a rust shell made for the [periodic](https://github.com/voidcoefficient/periodic) operating system.
 
 ## Download & Install
 

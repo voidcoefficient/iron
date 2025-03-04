@@ -8,6 +8,9 @@ pub mod state;
 use shell::Shell;
 use state::State;
 
+// TODO
+// TODO: Ctrl-C handling
+
 fn main() -> () {
 	let shell = Shell::default();
 	let initial_state = shell.evaluate_config(State::new());

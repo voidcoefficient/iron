@@ -78,6 +78,24 @@ impl Shell {
 				eprintln!("\t`alias ls eza` -- `ls` will now run `eza`");
 				state.clone()
 			}
+			Some("source") => match parts.next() {
+				Some(file_path) => Config::load_file_from_path_string(file_path.to_string())
+					.unwrap()
+					.lines()
+					.fold(state, |acc, x| {
+						self.evaluate(
+							acc,
+							x.unwrap_or("".to_string()).split_whitespace().peekable(),
+						)
+					}),
+				_ => {
+					eprintln!("usage: `source [file_path]`");
+					eprintln!("example:");
+					eprintln!("\tsource ~/.ironrc");
+
+					state.clone()
+				}
+			},
 			Some(command_or_alias) => {
 				match state.aliases.get(command_or_alias) {
 					Some(alias) => self.handle_command(alias, parts),
@@ -86,10 +104,7 @@ impl Shell {
 
 				state.clone()
 			}
-			None => {
-				print!("\n");
-				exit(0);
-			}
+			None => state.clone(),
 		}
 	}
 
