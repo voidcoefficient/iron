@@ -46,8 +46,9 @@ fn handle_command(command: &str, parts: SplitWhitespace<'_>) {
 }
 
 fn main() -> ! {
+	let prompt = option_env!("IRON_PROMPT").unwrap_or("% ");
 	loop {
-		print!("% "); // TODO: user customizable prompts
+		print!("{}", prompt);
 		io::stdout().flush().unwrap();
 
 		let mut input = String::new();
